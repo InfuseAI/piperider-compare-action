@@ -1,0 +1,13 @@
+dataSources:
+- name: visit_taiwan
+  type: csv
+  path: residence.csv
+
+profiler:
+#   table:
+#     # the maximum row count to profile. (Default unlimited)
+#     limit: 1000000
+#     duplicateRows: false
+
+telemetry:
+  id: e59ab975946e40b8a911a090dd2eec53

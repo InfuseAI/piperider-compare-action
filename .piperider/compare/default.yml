@@ -1,0 +1,8 @@
+base:
+  branch: main
+  piperider:
+    command: piperider run
+target:
+  branch: feature/action
+  piperider:
+    command: piperider run
