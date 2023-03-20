@@ -1,0 +1,43 @@
+name: 'PipeRider Compare Action'
+
+description: 'Run the PipeRider Compare via GitHub Action'
+
+author: 'InfuseAI'
+
+branding:
+  icon: 'trending-up'
+  color: 'orange'
+
+inputs: 
+  github_token: 
+    description: 'GITHUB_TOKEN or a personal access token.'
+    default: ${{ github.token }}
+    required: true
+  recipe:
+    description: 'The recipe to use for the comparison'
+    required: true
+  upload:
+    description: 'Whether to upload the comparison results to the cloud'
+    required: false
+  share:
+    description: 'Whether to make a share link'
+    required: false
+  cloud_project:
+    description: 'The cloud project to use for the comparison'
+    required: false
+  cloud_api_token:
+    description: 'The API token to use for the cloud API'
+    required: false
+
+
+outputs:
+  analysis:
+    description: 'The analysis from PipeRider'
+  status:
+    description: 'The exit status from PipeRider'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}
