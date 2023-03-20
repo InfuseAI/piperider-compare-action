@@ -1,0 +1,25 @@
+name: Run tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run action
+        uses: ./
+        with:
+          recipe: <recipe>
+          upload: true
+          share: true
+          cloud_project: <myworkspace/myproject>
+          cloud_api_token: <token>
