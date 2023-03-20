@@ -15,6 +15,12 @@ fi
 
 # required by running compare with the GitHub action
 git config --global --add safe.directory /github/workspace
+echo "branch --"
+git branch 
+echo "status --"
+git status
+echo "go compare --"
+
 piperider compare ; rc=$?
 
 echo "::set-output name=status::${rc}"
