@@ -1,6 +1,11 @@
 #!/bin/bash -l
 set -o pipefail
 
+if [[ "${GITHUB_EVENT_NAME}" != "pull_request" ]]; then
+  echo "This action is designed to work with pull_request events only."
+  exit 0
+fi
+
 export GITHUB_ACTION_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 
 piperider version && rm .piperider/.unsend_events.json
@@ -24,9 +29,10 @@ git config --global --add safe.directory /github/workspace
 git fetch --unshallow
 
 set -e
+# invoke the github-action helper script
 PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action prepare_for_action
 run_command=$(PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action make_recipe_command)
-echo "will execute: $run_command"
+echo "will execute => $run_command"
 
 eval $run_command ; rc=$?
 
