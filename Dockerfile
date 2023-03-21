@@ -4,7 +4,8 @@ ENV NODE_VERSION=16.13.0
 
 RUN apt-get update && apt-get install -y ca-certificates curl uuid-runtime git && rm -rf /var/lib/apt/lists/*
 #RUN pip install 'piperider[duckdb]'
-RUN pip install 'git+https@github.com:InfuseAI/piperider.git@feature/sc-30601/make-compare-recipe-working-on-github-action'
+RUN pip install git+https://github.com/InfuseAI/piperider.git@feature/sc-30601/make-compare-recipe-working-on-github-action
+
 
 # TODO we should install packages by configuration
 # RUN pip install pip install 'piperider[snowflake]' \
