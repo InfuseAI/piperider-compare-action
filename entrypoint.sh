@@ -13,14 +13,27 @@ if [ -f ${GITHUB_WORKSPACE}/requirements.txt ]; then
 fi
 
 
+# work around for dev helper
+pip install git+https://github.com/InfuseAI/piperider.git@feature/sc-30601/make-compare-recipe-working-on-github-action -t /tmp/utils
+
+
 # required by running compare with the GitHub action
 git config --global --add safe.directory /github/workspace
-piperider compare ; rc=$?
 
-echo "::set-output name=analysis::${log}"
+# make the git merge-base working
+git fetch --unshallow
+
+set -e
+PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action prepare_for_action
+run_command=$(PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action make_recipe_command)
+echo "will execute: $run_command"
+
+eval $run_command ; rc=$?
+
 echo "::set-output name=status::${rc}"
 echo "::set-output name=uuid::${uuid}"
 
-pushd /usr/src/github-action
-/root/.nvm/versions/node/v16.13.0/bin/node index.js $rc || exit $?
-popd
+# TODO enable it after compare working
+# pushd /usr/src/github-action
+# /root/.nvm/versions/node/v16.13.0/bin/node index.js $rc || exit $?
+# popd
