@@ -20,8 +20,7 @@ jobs:
       - name: Run action
         uses: ./
         with:
-          recipe: <recipe>
           upload: true
           share: true
-          cloud_project: <myworkspace/myproject>
-          cloud_api_token: <token>
+          # cloud_project: <myworkspace/myproject>
+          # cloud_api_token: <token>

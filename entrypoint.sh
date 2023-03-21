@@ -13,24 +13,22 @@ if [ -f ${GITHUB_WORKSPACE}/requirements.txt ]; then
 fi
 
 
+# work around for dev helper
+pip install git+https://github.com/InfuseAI/piperider.git@feature/sc-30601/make-compare-recipe-working-on-github-action -t /tmp/utils
+
+
 # required by running compare with the GitHub action
 git config --global --add safe.directory /github/workspace
 
-# make sure all branches could be swith
-git fetch
+# make the git merge-base working
+git fetch --unshallow
 
-# TODO
-echo "branch --"
-git branch 
-echo "status --"
-git status
-echo "go compare --"
-piperider compare --show-branches 
-echo "test switch" 
-git fetch
-echo "go real"
+set -e
+PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action prepare_for_action
+run_command=$(PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action make_recipe_command)
+echo "will execute: $run_command"
 
-piperider compare ; rc=$?
+eval $run_command ; rc=$?
 
 echo "::set-output name=status::${rc}"
 echo "::set-output name=uuid::${uuid}"
