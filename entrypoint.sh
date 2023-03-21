@@ -15,6 +15,11 @@ fi
 
 # required by running compare with the GitHub action
 git config --global --add safe.directory /github/workspace
+
+# make sure all branches could be swith
+git fetch
+
+# TODO
 echo "branch --"
 git branch 
 echo "status --"
@@ -23,7 +28,6 @@ echo "go compare --"
 piperider compare --show-branches 
 echo "test switch" 
 git fetch
-git switch main
 echo "go real"
 
 piperider compare ; rc=$?
