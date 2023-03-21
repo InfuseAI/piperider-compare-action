@@ -3,18 +3,9 @@ FROM python:3.9-slim
 ENV NODE_VERSION=16.13.0
 
 RUN apt-get update && apt-get install -y ca-certificates curl uuid-runtime git && rm -rf /var/lib/apt/lists/*
-RUN pip install 'piperider[duckdb]'
+RUN curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /bin/yq | chmod +x /bin/yq
+RUN pip install -no-cache-dir piperider
 
-# TODO we should install packages by configuration
-# RUN pip install pip install 'piperider[snowflake]' \
-#     && pip install 'piperider[postgres]' \
-#     && pip install 'piperider[bigquery]' \
-#     && pip install 'piperider[redshift]' \
-#     && pip install 'piperider[parquet]' \
-#     && pip install 'piperider[csv]' \
-#     && pip install 'piperider[duckdb]'
-
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 ENV NVM_DIR=/root/.nvm
 RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
