@@ -21,7 +21,8 @@ echo "status --"
 git status
 echo "go compare --"
 piperider compare --show-branches 
-
+echo "test switch" 
+git switch main
 echo "go real"
 
 piperider compare ; rc=$?
