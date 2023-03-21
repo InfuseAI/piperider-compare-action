@@ -1,0 +1,13 @@
+dataSources:
+- name: TBBT
+  type: csv
+  path: data/tbbt.csv
+
+profiler:
+#   table:
+#     # the maximum row count to profile. (Default unlimited)
+#     limit: 1000000
+#     duplicateRows: false
+
+telemetry:
+  id: addd6b57c32d42ed86c4f7bee7504e26

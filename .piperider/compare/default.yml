@@ -1,0 +1,7 @@
+base:
+  branch: test-action
+  piperider:
+    command: piperider run
+target:
+  piperider:
+    command: piperider run
