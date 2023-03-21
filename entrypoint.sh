@@ -31,6 +31,12 @@ for datasource_type in "$(yq '.dataSources[].type' ${GITHUB_WORKSPACE}/.piperide
     esac
 done
 
+# Setup credentials for the data connectors if user provides
+if [ "${INPUT_CREDENTIALS_YML:-}" != '' ]; then
+    echo "Setting up credentials.yml"
+    echo "${INPUT_CREDENTIALS_YML}" > ${GITHUB_WORKSPACE}/.piperider/credentials.yml
+fi
+
 # work around for dev helper
 pip install git+https://github.com/InfuseAI/piperider.git@feature/sc-30601/make-compare-recipe-working-on-github-action -t /tmp/utils
 

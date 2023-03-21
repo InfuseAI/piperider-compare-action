@@ -28,6 +28,9 @@ inputs:
   cloud_api_token:
     description: 'The API token to use for the cloud API'
     required: false
+  credentials_yml:
+    description: 'The content of the PipeRider credentials.yml file to use for the PipeRider project'
+    required: false
 
 
 outputs:
