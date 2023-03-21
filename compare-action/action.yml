@@ -15,7 +15,7 @@ inputs:
     required: true
   recipe:
     description: 'The recipe to use for the comparison'
-    required: false
+    required: true
   upload:
     description: 'Whether to upload the comparison results to the cloud'
     required: false
@@ -28,28 +28,10 @@ inputs:
   cloud_api_token:
     description: 'The API token to use for the cloud API'
     required: false
-  credentials_yml:
-    description: 'The content of the PipeRider credentials.yml file to use for the PipeRider project'
-    required: false
 
 
 runs:
-  using: "composite"
-  steps:
-    - name: PipeRider Compare 
-      uses: ./compare-action
-      with:
-        github_token: ${{ inputs.github_token }}
-        recipe: ${{ inputs.recipe }}
-        upload: ${{ inputs.upload }}
-        share: ${{ inputs.share }}
-        cloud_project: ${{ inputs.cloud_project }}
-        cloud_api_token: ${{ inputs.cloud_api_token }}
-    - name: Upload Generated Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: reports
-        path: ./report
-    - name: Check
-      shell: bash
-      run: ls -alh ./report
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}

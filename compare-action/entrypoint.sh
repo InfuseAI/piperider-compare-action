@@ -58,7 +58,4 @@ eval $run_command ; rc=$?
 echo "::set-output name=status::${rc}"
 echo "::set-output name=uuid::${uuid}"
 
-# TODO enable it after compare working
-# pushd /usr/src/github-action
-# /root/.nvm/versions/node/v16.13.0/bin/node index.js $rc || exit $?
-# popd
+PYTHONPATH=/tmp/utils python -m piperider_cli.recipes.github_action attach_comment
