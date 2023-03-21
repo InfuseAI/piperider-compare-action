@@ -10,13 +10,26 @@ export GITHUB_ACTION_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/$
 
 piperider version && rm .piperider/.unsend_events.json
 
+# Replace the user_id with a unique id for the repository
 uuid=$(uuidgen -n @oid -N "${GITHUB_REPOSITORY}" --sha1 | tr -d "-")
 sed -i "s/^user_id: .*$/user_id: ${uuid}/" ~/.piperider/profile.yml
 
+# Install the requirements if the file exists in the repository
 if [ -f ${GITHUB_WORKSPACE}/requirements.txt ]; then
     pip install --no-cache-dir -r ${GITHUB_WORKSPACE}/requirements.txt
 fi
 
+# Install the piperider data connectors based on .piperider/config.yml
+for datasource_type in "$(yq '.dataSources[].type' ${GITHUB_WORKSPACE}/.piperider/config.yml)"; do
+    case "${datasource_type}" in
+        sqlite)
+            echo "Already includes sqlite"
+        ;;
+        *)
+            pip install --no-cache-dir piperider[${datasource_type}] || echo "Failed to install piperider[${datasource_type}]"; true
+        ;;
+    esac
+done
 
 # work around for dev helper
 pip install git+https://github.com/InfuseAI/piperider.git@feature/sc-30601/make-compare-recipe-working-on-github-action -t /tmp/utils
