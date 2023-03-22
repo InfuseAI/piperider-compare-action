@@ -12,7 +12,7 @@ inputs:
   github_token: 
     description: 'GITHUB_TOKEN or a personal access token.'
     default: ${{ github.token }}
-    required: true
+    required: false
   recipe:
     description: 'The recipe to use for the comparison'
     required: false
