@@ -44,7 +44,7 @@ runs:
   using: "composite"
   steps:
     - id: piperider-compare
-      uses: InfuseAI/piperider-compare-action/compare-action@${{ env.GITHUB_REF.split('/').last() }}
+      uses: InfuseAI/piperider-compare-action/compare-action@v1.0.0.beta-1
       if: github.event_name == 'pull_request'
       with:
         github_token: ${{ inputs.github_token }}
