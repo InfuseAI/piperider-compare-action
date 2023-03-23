@@ -25,7 +25,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: PipeRider Compare
       uses: InfuseAI/piperider-compare-action@v1
@@ -45,7 +45,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: PipeRider Compare
       uses: InfuseAI/piperider-compare-action@v1
