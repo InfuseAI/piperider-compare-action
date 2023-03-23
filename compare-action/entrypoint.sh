@@ -9,11 +9,11 @@ fi
 
 export GITHUB_ACTION_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 
+echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.json)"
+
 # Replace the user_id with a unique id for the repository
 uuid=$(uuidgen -n @oid -N "${GITHUB_REPOSITORY}" --sha1 | tr -d "-")
 sed -i "s/^user_id: .*$/user_id: ${uuid}/" ~/.piperider/profile.yml
-
-echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.json)"
 
 # Install the requirements if the file exists in the repository
 if [ -f ${GITHUB_WORKSPACE}/requirements.txt ]; then
