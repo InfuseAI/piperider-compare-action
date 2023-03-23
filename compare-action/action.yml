@@ -12,10 +12,10 @@ inputs:
   github_token: 
     description: 'GITHUB_TOKEN or a personal access token.'
     default: ${{ github.token }}
-    required: true
+    required: false
   recipe:
     description: 'The recipe to use for the comparison'
-    required: true
+    required: false
   upload:
     description: 'Whether to upload the comparison results to the cloud'
     required: false
@@ -29,6 +29,11 @@ inputs:
     description: 'The API token to use for the cloud API'
     required: false
 
+outputs:
+  status:
+    description: 'The exit code status of the PipeRider comparison. This indicates whether the comparison was successful or not.'
+  uuid:
+    description: 'The UUID of the repository that was compared.'
 
 runs:
   using: 'docker'

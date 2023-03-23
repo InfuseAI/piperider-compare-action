@@ -32,12 +32,20 @@ inputs:
     description: 'The content of the PipeRider credentials.yml file to use for the PipeRider project'
     required: false
 
+outputs:
+  status:
+    description: 'The exit code status of the PipeRider comparison. This indicates whether the comparison was successful or not.'
+    value: ${{ steps.piperider-compare.outputs.status }}
+  uuid:
+    description: 'The UUID of the repository that was compared.'
+    value: ${{ steps.piperider-compare.outputs.uuid }}
 
 runs:
   using: "composite"
   steps:
-    - name: PipeRider Compare 
+    - id: piperider-compare
       uses: ./compare-action
+      if: github.event_name == 'pull_request'
       with:
         github_token: ${{ inputs.github_token }}
         recipe: ${{ inputs.recipe }}
@@ -47,9 +55,7 @@ runs:
         cloud_api_token: ${{ inputs.cloud_api_token }}
     - name: Upload Generated Report
       uses: actions/upload-artifact@v3
+      if: github.event_name == 'pull_request'
       with:
         name: reports
         path: ./report
-    - name: Check
-      shell: bash
-      run: ls -alh ./report
