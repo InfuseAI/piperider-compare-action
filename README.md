@@ -89,7 +89,12 @@ We hope this guide will help you use the PipeRider Compare Action more effective
 
 ### **Outputs**
 
-The action of comparing with PipeRider will upload the report to the artifacts in the GitHub workflow.
+This GitHub Action provides two outputs that can be used in subsequent steps in the same job:
+
+- **`status`**: The exit code status of the PipeRider comparison. This indicates whether the comparison was successful or not.
+- **`uuid`**: The UUID of the repository that was compared.
+
+Additionally, the action uploads the generated reports as an artifact.
 
 ## **Support**
 
