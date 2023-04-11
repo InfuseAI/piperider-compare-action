@@ -1,3 +1,5 @@
+<p align="center"><img src="https://i.imgur.com/oWUjZT6.png" alt="PipeRider Comparison on Github Pull Request via Github Action" height="36px" /></p>
+
 # **PipeRider Compare Action 🚀**
 
 The PipeRider Compare Action is a GitHub Action built on [PipeRider](https://github.com/InfuseAI/piperider). It allows you to run the PipeRider Compare tool directly from your GitHub repository so you can merge Pull Requests with confidence.
