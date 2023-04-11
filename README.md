@@ -12,6 +12,8 @@ This action runs the PipeRider Compare tool and enables you to compare different
 
 ## **Usage**
 
+### Basic Usage
+
 In order to use the PipeRider Compare Action, you must have a PipeRider project, and create a workflow file in your GitHub repository that specifies this action as one of the steps. It is important to note that this action is only triggered by the pull_request event.
 
 When defining your workflow, you may need to add permissions to the `pull-requests` field in order to enable the action to write to pull requests. You can do this by adding the permissions field as shown below:
@@ -35,8 +37,14 @@ jobs:
       uses: InfuseAI/piperider-compare-action@v1
 ```
 
-It is also possible to use the PipeRider Compare Action with PipeRider Cloud by providing the `cloud_api_token` and `cloud_project` parameters:
+### (Optional) PipeRider Cloud Usage
 
+<details><summary>Host results on PipeRider Cloud by:</summary>
+  
+PipeRider Cloud provides an interface for navigating, generating additional comparisons, and sharing results with team members. To use PipeRider Cloud:
+
+1. [Sign up for PipeRider Cloud](https://cloud.piperider.io/signup) to obtain your `cloud_api_token`. Your default cloud project will come with a `cloud_project` id.
+2. Add `cloud_api_token` and `cloud_project` parameters to your Action like so:
 
 ```yaml
 name: PR with PipeRider
@@ -60,9 +68,13 @@ jobs:
         share: true
 ```
 
-Please note that before using the PipeRider Compare Action with PipeRider Cloud, you need to obtain an **`api_token`** and set up the cloud parameters. With the **`upload`** parameter, the action will upload the comparison result to the cloud. The **`share`** parameter is used to generate a shareable link for the comparison result.
+The **`upload`** parameter, the action will upload the comparison result to the cloud. The **`share`** parameter is used to generate a shareable link for the comparison result.
+  
+</details>
 
 We hope these guidelines will help you use the PipeRider Compare Action effectively in your projects.
+
+<hr/>
 
 ### **Inputs for PipeRider Compare Action**
 
@@ -77,16 +89,19 @@ The following basic parameters are available:
 | github_token | No | This input is optional and can be set as GITHUB_TOKEN or as a personal access token with repository access. The default value is ${{ github.token }}. |
 | recipe | No | This input is optional and allows you to specify the recipe to use for the comparison. If not specified, the default recipe located at .piperider/compare/default.yml will be used. |
 
-### PipeRider Cloud Parameters
+### (Optional) PipeRider Cloud Parameters
+<details><summary>The following parameters are available for using PipeRider Cloud:</summary>
 
-The following parameters are available for using PipeRider Cloud. These parameters only work when the **`cloud_api_token`** has been set.
+  These parameters only work when the **`cloud_api_token`** has been set.
 
-| Input | Required | Description |
-| --- | --- | --- |
-| cloud_api_token | No | This input is optional and allows you to specify the API token to use for the PipeRider Cloud API. If not specified, the default API token will be used. |
-| cloud_project | No | This input is optional and allows you to specify the cloud project to use for the comparison. If not specified, the default project will be used. |
-| upload | No | This input is optional and allows you to specify whether to upload the comparison results to PipeRider Cloud. If set to true, the comparison results will be uploaded. The default value is false. |
-| share | No | This input is optional and allows you to specify whether to create a share link for the comparison results. If set to true, a share link will be created. The default value is false. |
+  | Input | Required | Description |
+  | --- | --- | --- |
+  | cloud_api_token | No | This input is optional and allows you to specify the API token to use for the PipeRider Cloud API. If not specified, the default API token will be used. |
+  | cloud_project | No | This input is optional and allows you to specify the cloud project to use for the comparison. If not specified, the default project will be used. |
+  | upload | No | This input is optional and allows you to specify whether to upload the comparison results to PipeRider Cloud. If set to true, the comparison results will be uploaded. The default value is false. |
+  | share | No | This input is optional and allows you to specify whether to create a share link for the comparison results. If set to true, a share link will be created. The default value is false. |
+  
+</details>
 
 We hope this guide will help you use the PipeRider Compare Action more effectively.
 
@@ -97,8 +112,6 @@ This GitHub Action provides two outputs that can be used in subsequent steps in 
 
 - **`status`**: The exit code status of the PipeRider comparison. This indicates whether the comparison was successful or not.
 - **`uuid`**: The UUID of the repository that was compared.
-
-Additionally, the action uploads the generated reports as an artifact.
 
 ## **Support**
 
