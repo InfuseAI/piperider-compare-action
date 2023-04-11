@@ -1,10 +1,14 @@
 # **PipeRider Compare Action 🚀**
 
-The PipeRider Compare Action is a GitHub Action developed by InfuseAI that allows you to run the PipeRider Compare tool directly from your GitHub repository.
+The PipeRider Compare Action is a GitHub Action built on [PipeRider](https://github.com/InfuseAI/piperider). It allows you to run the PipeRider Compare tool directly from your GitHub repository so you can merge Pull Requests with confidence.
 
 ## **Description 🔍**
 
-This action runs the PipeRider Compare tool and enables you to compare different versions of your DATA 📊. You can use this action to test the quality of your DATA and identify any kinds of issues. So whether you're a developer 🧑‍💻 or a data scientist 🧑‍🔬, the PipeRider Compare Action can help you ensure that your data is top-notch!
+This action runs the PipeRider Compare tool and enables you to compare different versions of your DATA 📊. You can use this action to test the quality of your DATA and identify any kinds of issues. So whether you're a developer 🧑‍💻, a data engineer 🧑‍🔧, or a data scientist 🧑‍🔬, the PipeRider Compare Action can help you ensure that your data is top-notch!
+
+<p align="center">
+  <img src="https://i.imgur.com/ztaXF4F.png" alt="PipeRider Comparison on Github Pull Request via Github Action" width="400px" />
+</p>
 
 ## **Usage**
 
