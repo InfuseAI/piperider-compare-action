@@ -1,4 +1,4 @@
-<p align="center"><img src="https://i.imgur.com/oWUjZT6.png" alt="PipeRider Comparison on Github Pull Request via Github Action" height="36px" /></p>
+<p align="center"><a href="https://github.com/InfuseAI/piperider" target="_blank"><img src="https://i.imgur.com/oWUjZT6.png" alt="PipeRider Comparison on Github Pull Request via Github Action" height="36px" /></a></p>
 
 # **PipeRider Compare Action 🚀**
 
