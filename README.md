@@ -91,13 +91,13 @@ jobs:
 
     - name: PipeRider Compare
       uses: InfuseAI/piperider-compare-action@v1
-			env:
-				SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-			  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-			  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-			  SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-			  SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-			  SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+      env:
+        SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+        SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+        SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+        SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+        SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
 ```
 
