@@ -39,6 +39,68 @@ jobs:
       uses: InfuseAI/piperider-compare-action@v1
 ```
 
+### DBT Integration
+If you are using dbt to manage your data transformation and want to leverage PipeRider to automate data reliability testing, you need to configure your dbt project and GitHub repository settings properly.  We show you how to do this with snowflake as an example.
+
+First, to install a specific adapter, you need a requirements.txt file that lists the dependencies for your project.
+
+```text
+piperider[snowflake]
+dbt-snowflake
+```
+
+Second, you need to put your dbt profiles.yml file under your dbt project root directory in your GitHub repository. This file contains the connection information for your data warehouse and the target schema for your dbt models. PipeRider will use this file to connect to your data source and profile your models.
+
+```yaml
+jaffle_shop:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') | as_text }}"
+
+      # User/password auth
+      user: "{{ env_var('SNOWFLAKE_USER') | as_text }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') | as_text }}"
+
+      role: "{{ env_var('SNOWFLAKE_ROLE') | as_text }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') | as_text }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') | as_text }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA') | as_text }}"
+      threads: 4
+```
+
+Third, you need to set the environment variables for your dbt profiles in the setting page of your GitHub repository. Go to Settings -> Secrets and variables -> New repository secret and add the above secrets:
+
+![secrets and variable setting](docs/assets/actions_secrets_variables_setting.png)
+
+Finally, you need to declare the environment variables in your GitHub workflow yaml file. This file defines the steps for running PipeRider on every pull request. You can use the following template as a reference:
+
+```yaml
+name: PR with PipeRider
+
+on: [pull_request]
+
+jobs:
+  piperider-compare:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: PipeRider Compare
+      uses: InfuseAI/piperider-compare-action@v1
+      env:
+        SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+        SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+        SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+        SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+        SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+```
+
 ### (Optional) PipeRider Cloud Usage
 
 <details><summary>Host results on PipeRider Cloud by:</summary>
