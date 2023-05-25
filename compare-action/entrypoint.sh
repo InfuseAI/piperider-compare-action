@@ -8,6 +8,10 @@ if [[ "${GITHUB_EVENT_NAME}" != "pull_request" ]]; then
 fi
 
 export GITHUB_ACTION_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+if [[ "${PIPERIDER_VERSION:-}" != "" ]]; then
+  echo "[PipeRider] Installing piperider==${PIPERIDER_VERSION}"
+  pip install -q --no-cache-dir piperider==${PIPERIDER_VERSION} || echo "[PipeRider] Failed to install piperider==${PIPERIDER_VERSION}"; exit 1
+fi
 
 echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.json)"
 
