@@ -34,6 +34,9 @@ inputs:
   working_directory:
     description: 'The working directory to use for the comparison'
     required: false
+  piperider_version:
+    description: 'The version of PipeRider to use for the comparison'
+    required: false
 
 outputs:
   status:

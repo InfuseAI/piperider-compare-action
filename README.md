@@ -155,7 +155,7 @@ The following basic parameters are available:
 | github_token | No | This input is optional and can be set as GITHUB_TOKEN or as a personal access token with repository access. The default value is ${{ github.token }}. |
 | recipe | No | This input is optional and allows you to specify the recipe to use for the comparison. If not specified, the default recipe located at .piperider/compare/default.yml will be used. |
 | working_directory | No | This input is optional and allows you to specify the working directory to use for the comparison. If not specified, the default working directory will be used. |
-
+| piperider_version | No | This input is optional and allows you to specify the version of PipeRider to use for the comparison. If not specified, the latest version will be used. |
 ### (Optional) PipeRider Cloud Parameters
 <details><summary>The following parameters are available for using PipeRider Cloud:</summary>
 
