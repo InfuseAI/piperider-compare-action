@@ -31,6 +31,9 @@ inputs:
   credentials_yml:
     description: 'The content of the PipeRider credentials.yml file to use for the PipeRider project'
     required: false
+  working_directory:
+    description: 'The working directory to use for the comparison'
+    required: false
 
 outputs:
   status:
@@ -54,6 +57,7 @@ runs:
         cloud_project: ${{ inputs.cloud_project }}
         cloud_api_token: ${{ inputs.cloud_api_token }}
         credentials_yml: ${{ inputs.credentials_yml }}
+        working_dir: ${{ inputs.working_dir }}
     - name: Upload Generated Report
       uses: actions/upload-artifact@v3
       if: github.event_name == 'pull_request'

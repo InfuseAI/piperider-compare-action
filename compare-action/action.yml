@@ -31,6 +31,9 @@ inputs:
   credentials_yml:
     description: 'The content of the PipeRider credentials.yml file to use for the PipeRider project'
     required: false
+  working_directory:
+    description: 'The working directory to use for the comparison'
+    required: false
 
 outputs:
   status:
