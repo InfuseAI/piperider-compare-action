@@ -10,7 +10,8 @@ fi
 export GITHUB_ACTION_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 if [[ "${INPUT_PIPERIDER_VERSION:-}" != "" ]]; then
   echo "[PipeRider] Installing piperider==${INPUT_PIPERIDER_VERSION}"
-  pip install -q --no-cache-dir piperider==${INPUT_PIPERIDER_VERSION} || echo "[PipeRider] Failed to install piperider==${INPUT_PIPERIDER_VERSION}"; exit 1
+  
+  pip install -q --no-cache-dir piperider==${INPUT_PIPERIDER_VERSION} || echo "[PipeRider] Failed to install piperider==${INPUT_PIPERIDER_VERSION}"
 fi
 
 echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.json)"
