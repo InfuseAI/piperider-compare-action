@@ -14,15 +14,20 @@ echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.j
 # Replace the user_id with a unique id for the repository
 uuid=$(uuidgen -n @oid -N "${GITHUB_REPOSITORY}" --sha1 | tr -d "-")
 sed -i "s/^user_id: .*$/user_id: ${uuid}/" ~/.piperider/profile.yml
+if [[ "${WORKING_DIRECTORY:-}" != "" ]]; then
+    export PIPERIDER_WORKSPACE=$(realpath ${WORKING_DIRECTORY})
+else
+    export PIPERIDER_WORKSPACE=${GITHUB_WORKSPACE}
+fi
 
 # Install the requirements if the file exists in the repository
-if [ -f ${GITHUB_WORKSPACE}/requirements.txt ]; then
+if [ -f ${PIPERIDER_WORKSPACE}/requirements.txt ]; then
     echo "[PipeRider] Installing requirements.txt"
-    pip install -q --no-cache-dir -r ${GITHUB_WORKSPACE}/requirements.txt
+    pip install -q --no-cache-dir -r ${PIPERIDER_WORKSPACE}/requirements.txt
 fi
 
 # Install the piperider data connectors based on .piperider/config.yml
-for datasource_type in "$(yq '.dataSources[].type' ${GITHUB_WORKSPACE}/.piperider/config.yml)"; do
+for datasource_type in "$(yq '.dataSources[].type' ${PIPERIDER_WORKSPACE}/.piperider/config.yml)"; do
     case "${datasource_type}" in
         sqlite)
             echo "[PipeRider] Skipping sqlite, it is built-in"
@@ -36,7 +41,7 @@ done
 # Setup credentials for the data connectors if user provides
 if [ "${INPUT_CREDENTIALS_YML:-}" != '' ]; then
     echo "[PipeRider] Setting up credentials.yml"
-    echo "${INPUT_CREDENTIALS_YML}" > ${GITHUB_WORKSPACE}/.piperider/credentials.yml
+    echo "${INPUT_CREDENTIALS_YML}" > ${PIPERIDER_WORKSPACE}/.piperider/credentials.yml
 fi
 
 # work around for dev helper
@@ -50,6 +55,9 @@ git config --global --add safe.directory /github/workspace
 git fetch --unshallow
 
 set -e
+echo "[PipeRider] Running piperider compare"
+echo "Working directory: ${PIPERIDER_WORKSPACE}"
+pushd ${PIPERIDER_WORKSPACE} > /dev/null
 # invoke the github-action helper script
 python -m piperider_cli.recipes.github_action prepare_for_action
 run_commands=$(python -m piperider_cli.recipes.github_action make_recipe_command)
@@ -64,3 +72,4 @@ echo "uuid=${uuid}" >> $GITHUB_OUTPUT
 cat ./summary.md >> $GITHUB_STEP_SUMMARY
 
 python -m piperider_cli.recipes.github_action attach_comment
+popd > /dev/null
