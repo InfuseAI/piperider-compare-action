@@ -60,7 +60,8 @@ runs:
         cloud_project: ${{ inputs.cloud_project }}
         cloud_api_token: ${{ inputs.cloud_api_token }}
         credentials_yml: ${{ inputs.credentials_yml }}
-        working_dir: ${{ inputs.working_dir }}
+        working_directory: ${{ inputs.working_directory }}
+        piperider_version: ${{ inputs.piperider_version }}
     - name: Upload Generated Report
       uses: actions/upload-artifact@v3
       if: github.event_name == 'pull_request'
