@@ -8,9 +8,9 @@ if [[ "${GITHUB_EVENT_NAME}" != "pull_request" ]]; then
 fi
 
 export GITHUB_ACTION_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-if [[ "${PIPERIDER_VERSION:-}" != "" ]]; then
-  echo "[PipeRider] Installing piperider==${PIPERIDER_VERSION}"
-  pip install -q --no-cache-dir piperider==${PIPERIDER_VERSION} || echo "[PipeRider] Failed to install piperider==${PIPERIDER_VERSION}"; exit 1
+if [[ "${INPUT_PIPERIDER_VERSION:-}" != "" ]]; then
+  echo "[PipeRider] Installing piperider==${INPUT_PIPERIDER_VERSION}"
+  pip install -q --no-cache-dir piperider==${INPUT_PIPERIDER_VERSION} || echo "[PipeRider] Failed to install piperider==${INPUT_PIPERIDER_VERSION}"; exit 1
 fi
 
 echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.json)"
@@ -18,8 +18,8 @@ echo "[PipeRider] Version: $(piperider version && rm .piperider/.unsend_events.j
 # Replace the user_id with a unique id for the repository
 uuid=$(uuidgen -n @oid -N "${GITHUB_REPOSITORY}" --sha1 | tr -d "-")
 sed -i "s/^user_id: .*$/user_id: ${uuid}/" ~/.piperider/profile.yml
-if [[ "${WORKING_DIRECTORY:-}" != "" ]]; then
-    export PIPERIDER_WORKSPACE=$(realpath ${WORKING_DIRECTORY})
+if [[ "${INPUT_WORKING_DIRECTORY:-}" != "" ]]; then
+    export PIPERIDER_WORKSPACE=$(realpath ${INPUT_WORKING_DIRECTORY})
 else
     export PIPERIDER_WORKSPACE=${GITHUB_WORKSPACE}
 fi
