@@ -16,6 +16,13 @@ inputs:
   recipe:
     description: 'The recipe to use for the comparison'
     required: false
+  modified:
+    description: 'Only compare the modified models'
+    default: false
+    required: false
+  select:
+    description: 'Specify the dbt nodes to include'
+    required: false
   upload:
     description: 'Whether to upload the comparison results to the cloud'
     required: false
