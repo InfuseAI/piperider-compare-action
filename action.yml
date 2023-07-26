@@ -69,6 +69,8 @@ runs:
         credentials_yml: ${{ inputs.credentials_yml }}
         working_directory: ${{ inputs.working_directory }}
         piperider_version: ${{ inputs.piperider_version }}
+        modified: ${{ inputs.modified }}
+        select: ${{ inputs.select }}
     - name: Upload Generated Report
       uses: actions/upload-artifact@v3
       if: github.event_name == 'pull_request'
