@@ -23,6 +23,10 @@ inputs:
   select:
     description: 'Specify the dbt nodes to include'
     required: false
+  skip_datasource:
+    description: 'Skip accessing the connection of datasource'
+    default: false
+    required: false
   upload:
     description: 'Whether to upload the comparison results to the cloud'
     required: false
