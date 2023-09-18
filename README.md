@@ -157,6 +157,7 @@ The following basic parameters are available:
 | working_directory | No | This input is optional and allows you to specify the working directory to use for the comparison. If not specified, the default working directory will be used. |
 | modified | No | Only compare the modified models if set to `True`. |
 | select | No | Specify the dbt nodes to include. |
+| skip_datasource | No | Skip accessing the connection of datasource. |
 | piperider_version | No | This input is optional and allows you to specify the version of PipeRider to use for the comparison. If not specified, the latest version will be used. |
 ### (Optional) PipeRider Cloud Parameters
 <details><summary>The following parameters are available for using PipeRider Cloud:</summary>

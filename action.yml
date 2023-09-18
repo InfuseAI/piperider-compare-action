@@ -23,6 +23,10 @@ inputs:
   select:
     description: 'Specify the dbt nodes to include'
     required: false
+  skip_datasource:
+    description: 'Skip accessing the connection of datasource'
+    default: false
+    required: false
   upload:
     description: 'Whether to upload the comparison results to the cloud'
     required: false
@@ -71,6 +75,7 @@ runs:
         piperider_version: ${{ inputs.piperider_version }}
         modified: ${{ inputs.modified }}
         select: ${{ inputs.select }}
+        skip_datasource: ${{ inputs.skip_datasource }}
     - name: Upload Generated Report
       uses: actions/upload-artifact@v3
       if: github.event_name == 'pull_request'
