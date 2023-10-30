@@ -39,6 +39,14 @@ for datasource_type in "$(yq '.dataSources[].type' ${PIPERIDER_WORKSPACE}/.piper
         ;;
         *)
             pip install -q --no-cache-dir piperider[${datasource_type}] || echo "[PipeRider] Failed to install piperider[${datasource_type}]"; true
+            # Patch oscrypto manually before the next release
+            # Ref: https://github.com/wbond/oscrypto/issues/75
+            if [ "${datasource_type}" == "snowflake" ]; then
+                oscrypto_version=`pip list | grep oscrypto | awk '{print $2}' 2> /dev/null`
+                if [ "$oscrypto_version" == "1.3.0" ]; then
+                    pip install oscrypto@git+https://github.com/wbond/oscrypto.git@d5f3437ed24257895ae1edd9e503cfb352e635a8
+                fi
+            fi
         ;;
     esac
 done
