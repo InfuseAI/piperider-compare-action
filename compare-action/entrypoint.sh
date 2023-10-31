@@ -32,7 +32,7 @@ if [ -f ${PIPERIDER_WORKSPACE}/requirements.txt ]; then
 fi
 
 # Install the piperider data connectors based on .piperider/config.yml
-for datasource_type in "$(yq '.dataSources[].type' ${PIPERIDER_WORKSPACE}/.piperider/config.yml)"; do
+for datasource_type in $(yq '.dataSources[].type' ${PIPERIDER_WORKSPACE}/.piperider/config.yml); do
     case "${datasource_type}" in
         sqlite)
             echo "[PipeRider] Skipping sqlite, it is built-in"
