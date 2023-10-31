@@ -44,6 +44,8 @@ for datasource_type in $(yq '.dataSources[].type' ${PIPERIDER_WORKSPACE}/.piperi
             if [ "${datasource_type}" == "snowflake" ]; then
                 oscrypto_version=`pip list | grep oscrypto | awk '{print $2}' 2> /dev/null`
                 if [ "$oscrypto_version" == "1.3.0" ]; then
+                    echo "[Patch] oscrypto with latest OpenSSL"
+                    pip uninstall oscrypto -y
                     pip install oscrypto@git+https://github.com/wbond/oscrypto.git@d5f3437ed24257895ae1edd9e503cfb352e635a8
                 fi
             fi
