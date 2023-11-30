@@ -78,7 +78,7 @@ python -m piperider_cli.recipes.github_action prepare_for_action
 run_commands=$(python -m piperider_cli.recipes.github_action make_recipe_command)
 IFS=$'\n'
 for cmd in $run_commands; do
-    echo "[PipeRider] CMD Execlute => $cmd"
+    echo "[PipeRider] CMD Execute => $cmd"
     eval $cmd ; rc=$?
 done
 
